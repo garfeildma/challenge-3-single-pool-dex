@@ -59,7 +59,7 @@ const { ethers } = require("ethers");
 */
 
 /// 📡 What chain are your contracts deployed to?
-const initialNetwork = NETWORKS.localhost; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
+const initialNetwork = NETWORKS.kovan; // <------- select your target frontend network (localhost, rinkeby, xdai, mainnet)
 
 // 😬 Sorry for all the console logging
 const DEBUG = true;
@@ -289,6 +289,7 @@ function App(props) {
         <Menu.Item key="/debug">
           <Link to="/debug">Debug Contracts</Link>
         </Menu.Item>
+        {/*
         <Menu.Item key="/hints">
           <Link to="/hints">Hints</Link>
         </Menu.Item>
@@ -301,7 +302,8 @@ function App(props) {
         <Menu.Item key="/subgraph">
           <Link to="/subgraph">Subgraph</Link>
         </Menu.Item>
-      </Menu>
+        */}
+       </Menu>
 
       <Switch>
         <Route exact path="/">
@@ -342,6 +344,15 @@ function App(props) {
         <Route path="/Events">
           <Events
             contracts={readContracts}
+            contractName="Balloons"
+            eventName="Approval"
+            localProvider={localProvider}
+            mainnetProvider={mainnetProvider}
+            startBlock={1}
+          />
+
+          <Events
+            contracts={readContracts}
             contractName="DEX"
             eventName="EthToTokenSwap"
             localProvider={localProvider}
@@ -376,7 +387,7 @@ function App(props) {
             startBlock={1}
           />
         </Route>
-        }
+
         <Route exact path="/debug">
           {/*
                 🎛 this scaffolding is full of commonly used components
@@ -404,6 +415,7 @@ function App(props) {
             contractConfig={contractConfig}
           />
         </Route>
+        {/*
         <Route path="/hints">
           <Hints
             address={address}
@@ -437,7 +449,6 @@ function App(props) {
             contractConfig={contractConfig}
             chainId={1}
           />
-          {/*
             <Contract
               name="UNI"
               customContract={mainnetContracts && mainnetContracts.contracts && mainnetContracts.contracts.UNI}
@@ -446,7 +457,6 @@ function App(props) {
               address={address}
               blockExplorer="https://etherscan.io/"
             />
-            */}
         </Route>
         <Route path="/subgraph">
           <Subgraph
@@ -456,6 +466,7 @@ function App(props) {
             mainnetProvider={mainnetProvider}
           />
         </Route>
+          */}
       </Switch>
 
       <ThemeSwitch />
@@ -535,6 +546,17 @@ function App(props) {
             }
           </Col>
         </Row>
+      </div>
+
+      <div style={{ marginTop: 32, opacity: 0.5 }}>
+        {/* Add your address here */}
+        Created by{" "}
+        <Address
+          blockExplorer={blockExplorer}
+          value={"0x6b7667dd584d2356af3ca074a4e7d8706527e457"}
+          ensProvider={mainnetProvider}
+          fontSize={16}
+        />
       </div>
     </div>
   );
